@@ -1,16 +1,22 @@
 import subprocess
 import time
+from datetime import datetime
+
+last_hour = None
 
 while True:
 
-    print("\n======================")
-    print("RUNNING QUINTYX")
-    print("======================")
+    now = datetime.now()
 
-    subprocess.run([
-        r"C:\Users\DELL\AppData\Local\Programs\Python\Python312\python.exe",
-        r"C:\Users\DELL\Desktop\Quintyx_Research\scripts\live_signal.py"
-    ])
+    if now.minute == 1 and now.hour != last_hour:
 
-    print("\nSleeping for 1 hour...")
-    time.sleep(3600)
+        print("\nRunning after H1 candle close...")
+
+        subprocess.run([
+            r"C:\Users\DELL\AppData\Local\Programs\Python\Python312\python.exe",
+            r"C:\Users\DELL\Desktop\Quintyx_Research\scripts\live_signal.py"
+        ])
+
+        last_hour = now.hour
+
+    time.sleep(5)
